@@ -84,17 +84,22 @@ public class program {
     private static void inputPustakawan(Scanner scanner) {
         System.out.println("Enter idPustakawan:");
         int idPustakawan = scanner.nextInt();
+        scanner.nextLine(); // Consume newline left-over
         System.out.println("Enter Nama:");
-        String nama = scanner.next();
+        String nama = scanner.nextLine();
         System.out.println("Enter Email:");
-        String email = scanner.next();
+        String email = scanner.nextLine();
         System.out.println("Enter Password:");
-        String password = scanner.next();
+        String password = scanner.nextLine();
 
         pustakawan newPustakawan = new pustakawan(idPustakawan, nama, password, email);
         pustakawanList.add(newPustakawan);
         System.out.println("Pustakawan added successfully.");
         
+        printPustakawanData();
+    }
+    
+    private static void printPustakawanData() {
         writer.println("|=======================================================================================================|%n");
         writer.println("|                                              Pustakawan                                               |%n");
         writer.println("|=======================================================================================================|%n");
@@ -105,29 +110,27 @@ public class program {
         }
         writer.println("|=======================================================================================================|%n");
     }
-        
 
-        
-
-       
-    
-    
     private static void checkClientData() {
         System.out.println("Checking Mahasiswa/Dosen data...");
         if (clientList.isEmpty()) {
             System.out.println("No Mahasiswa/Dosen data available.");
         } else {
-            writer.println("Mahasiswa/Dosen data is available.");
-            writer.println("|=======================================================================================================|%n");
-            writer.println("|                                               Client                                               |%n");
-            writer.println("|=======================================================================================================|%n");
-            writer.printf("| %-3s | %-10s | %-20s | %-8s |%n", "NIM/NIK", "Nama", "Jurusan", "Fakultas");
-            writer.println("|=======================================================================================================|%n");
-            for(client mhs : clientList){
-                writer.printf("| %-3d | %-10s | %-20s | %-8s |%n", mhs.getIdClient(), mhs.getNama(), mhs.getProdi(), mhs.getFakultas());
-            }
-            writer.println("|=======================================================================================================|%n");
+            printClientData();
         }
+    }
+
+    private static void printClientData() {
+        writer.println("Mahasiswa/Dosen data is available.");
+        writer.println("|=======================================================================================================|%n");
+        writer.println("|                                               Client                                               |%n");
+        writer.println("|=======================================================================================================|%n");
+        writer.printf("| %-3s | %-10s | %-20s | %-8s |%n", "NIM/NIK", "Nama", "Jurusan", "Fakultas");
+        writer.println("|=======================================================================================================|%n");
+        for(client mhs : clientList){
+            writer.printf("| %-3d | %-10s | %-20s | %-8s |%n", mhs.getIdClient(), mhs.getNama(), mhs.getProdi(), mhs.getFakultas());
+        }
+        writer.println("|=======================================================================================================|%n");
     }
 
     private static void checkCD() {
@@ -135,38 +138,44 @@ public class program {
         if (cdList.isEmpty()) {
             System.out.println("No CD data available.");
         } else {
-            writer.println("CD data is available.");
-            writer.println("|=======================================================================================================|%n");
-            writer.println("|                                                   CD                                                  |%n");
-            writer.println("|=======================================================================================================|%n");
-            writer.printf("| %-3s | %-10s | %-20s | %-8s |%n", "CD ID", "Title", "Year", "Jumlah");
-            writer.println("|=======================================================================================================|%n");
-            for(cd cd : cdList){
-                writer.printf("| %-3d | %-10s | %-20s | %-8d |%n", cd.getKdCd(), cd.getJudul(), cd.getTahunTerbit(), cd.getjTotal());
-            }
-            writer.println("|=======================================================================================================|%n");
-    
+            printCDData();
         }
     }
 
-        private static void checkBuku() {
-            System.out.println("Checking Buku/Majalah data...");
-            if (cdList.isEmpty()) {
-                System.out.println("No Buku/Majalah data available.");
-            } else {
-                writer.println("Buku/Majalah Data is available");
-                writer.println("|=======================================================================================================|%n");
-                writer.println("|                                              Buku Majalah                                             |%n");
-                writer.println("|=======================================================================================================|%n");
-                writer.printf("| %-10s | %-10s | %-20s | %-8s |%n", "ID", "Tahun Terbit", "Judul", "Jumlah Total");
-                writer.println("|=======================================================================================================|%n");
-                for(buku_majalah bm : bukuMajalahList){
-                    writer.printf("| %-3s | %-10s | %-20s | %-8d |%n", bm.getIdBuku(), bm.getTahunTerbit(), bm.getJudul(), bm.getjTotal());
-                }
-                writer.println("|=======================================================================================================|%n");
-            }
+    private static void printCDData() {
+        writer.println("CD data is available.");
+        writer.println("|=======================================================================================================|%n");
+        writer.println("|                                                   CD                                                  |%n");
+        writer.println("|=======================================================================================================|%n");
+        writer.printf("| %-3s | %-10s | %-20s | %-8s |%n", "CD ID", "Title", "Year", "Jumlah");
+        writer.println("|=======================================================================================================|%n");
+        for(cd cd : cdList){
+            writer.printf("| %-3d | %-10s | %-20s | %-8d |%n", cd.getKdCd(), cd.getJudul(), cd.getTahunTerbit(), cd.getjTotal());
         }
+        writer.println("|=======================================================================================================|%n");
+    }
 
+    private static void checkBuku() {
+        System.out.println("Checking Buku/Majalah data...");
+        if (bukuMajalahList.isEmpty()) {
+            System.out.println("No Buku/Majalah data available.");
+        } else {
+            printBukuData();
+        }
+    }
+
+    private static void printBukuData() {
+        writer.println("Buku/Majalah Data is available");
+        writer.println("|=======================================================================================================|%n");
+        writer.println("|                                              Buku Majalah                                             |%n");
+        writer.println("|=======================================================================================================|%n");
+        writer.printf("| %-10s | %-10s | %-20s | %-8s |%n", "ID", "Tahun Terbit", "Judul", "Jumlah Total");
+        writer.println("|=======================================================================================================|%n");
+        for(buku_majalah bm : bukuMajalahList){
+            writer.printf("| %-3s | %-10s | %-20s | %-8d |%n", bm.getIdBuku(), bm.getTahunTerbit(), bm.getJudul(), bm.getjTotal());
+        }
+        writer.println("|=======================================================================================================|%n");
+    }
 
     private static void inputBukuMajalah(Scanner scanner) {
         System.out.println("Enter ID Buku:");
@@ -186,6 +195,10 @@ public class program {
         bukuMajalahList.add(newBukuMajalah);
         System.out.println("Buku Majalah added successfully.");
         
+        printBukuMajalahData();
+    }
+
+    private static void printBukuMajalahData() {
         writer.println("|=======================================================================================================|%n");
         writer.println("|                                              Buku Majalah                                             |%n");
         writer.println("|=======================================================================================================|%n");
@@ -211,15 +224,7 @@ public class program {
         clientList.add(newMahasiswa);
         System.out.println("Client added successfully.");
         
-        writer.println("|=======================================================================================================|%n");
-        writer.println("|                                         Mahasiswa/Dosen                                               |%n");
-        writer.println("|=======================================================================================================|%n");
-        writer.printf("| %-3s | %-10s | %-20s | %-8s |%n", "NIM/NIK", "Nama", "Jurusan", "Fakultas");
-        writer.println("|=======================================================================================================|%n");
-        for(client mhs : clientList){
-            writer.printf("| %-3d | %-10s | %-20s | %-8s |%n", mhs.getIdClient(), mhs.getNama(), mhs.getProdi(), mhs.getFakultas());
-        }
-        writer.println("|=======================================================================================================|%n");
+        printClientData();
     }
 
     private static void inputCD(Scanner scanner) {
@@ -236,16 +241,7 @@ public class program {
         cdList.add(newCD);
         System.out.println("CD added successfully.");
         
-        writer.println("|=======================================================================================================|%n");
-        writer.println("|                                                   CD                                                  |%n");
-        writer.println("|=======================================================================================================|%n");
-        writer.printf("| %-3s | %-10s | %-20s | %-8s |%n", "CD ID", "Title", "Year", "Jumlah");
-        writer.println("|=======================================================================================================|%n");
-        for(cd cd : cdList){
-            writer.printf("| %-3d | %-10s | %-20s | %-8d |%n", cd.getKdCd(), cd.getJudul(), cd.getTahunTerbit(), cd.getjTotal());
-        }
-        writer.println("|=======================================================================================================|%n");
-
+        printCDData();
     }
 
     private static void inputPenulis() {
@@ -263,6 +259,10 @@ public class program {
         penulisList.add(newPenulis);
         System.out.println("Penulis added successfully.");
         
+        printPenulisData();
+    }
+
+    private static void printPenulisData() {
         writer.println("|=======================================================================================================|%n");
         writer.println("|                                                Penulis                                                |%n");
         writer.println("|=======================================================================================================|%n");
@@ -272,7 +272,6 @@ public class program {
             writer.printf("| %-3d | %-10s | %-20s | %-8s |%n", penulis.getId(), penulis.getNama(), penulis.getEmail(), penulis.getAlamat());
         }
         writer.println("|=======================================================================================================|%n");
-
     }
 
     private static void inputPenerbit() {
@@ -290,6 +289,10 @@ public class program {
         penerbitList.add(newPenerbit);
         System.out.println("Penerbit added successfully.");
         
+        printPenerbitData();
+    }
+
+    private static void printPenerbitData() {
         writer.println("|=======================================================================================================|%n");
         writer.println("|                                               Penerbit                                                |%n");
         writer.println("|=======================================================================================================|%n");
@@ -299,7 +302,6 @@ public class program {
             writer.printf("| %-3d | %-10s | %-20s | %-8s |%n", penerbit.getId(), penerbit.getNama(), penerbit.getEmail(), penerbit.getAlamat());
         }
         writer.println("|=======================================================================================================|%n");
-
     }
 
     private static void inputTransaksi(Scanner scanner) {
