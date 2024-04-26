@@ -1,4 +1,3 @@
-
 package AFLOOP;
 import java.util.*;
 import java.io.*;
@@ -19,7 +18,7 @@ public class program {
 
     public static void main(String[] args) {
         try {
-            writer = new PrintWriter(new File("D:\\Tugas OOP\\AFLOOP\\Teks.txt"));
+            writer = new PrintWriter(new File("D:\\Tugas OOP\\gogo\\Teks.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("Error creating file.");
             e.printStackTrace();
@@ -31,12 +30,18 @@ public class program {
                 System.out.println("Login \n 1.Client \n 2. Pustakawan");
                 int jawab = scanner.nextInt();
                 if (jawab == 1) {
-                    System.out.println("1. Tambah Client\n2. Pinjam Buku");
+                    System.out.println("1. Tambah Client\n2. Pinjam Buku\n3. Check Data Buku\n 4. Check Data CD");
                     int jawab1 = scanner.nextInt();
                     if (jawab1 == 1) {
                         inputClient(scanner);
                     } else if (jawab1 == 2) {
                         inputTransaksi(scanner);
+                    }
+                    else if (jawab1 == 3){
+                        printBukuMajalahData();
+                    }
+                    else if (jawab1 == 4){
+                        printCDData();
                     }
                 } else if (jawab == 2) {
                     System.out.println("1. Tambah Buku\n 2. Tambah CD \n 3.Check Data Client\n 4.Check Data CD \n 5. Check Data Buku/Majalah \n 6. Tambah Penerbit \n 7.Tambah Penulis \n 8. Tambah Pustakawan \n 9. Tambah Pengembalian \n 10. Tambah Peminjaman \n 11. Tambah Pembayaran \n 12.Exit ");
@@ -46,11 +51,11 @@ public class program {
                     } else if (popo == 2) {
                         inputCD(scanner);
                     } else if (popo == 3) {
-                        checkClientData();
+                        printClientData();
                     } else if (popo == 4) {
-                        checkCD();
+                        printCDData();
                     } else if (popo == 5) {
-                        checkBuku();
+                        printBukuMajalahData();
                     }else if (popo == 6) {
                         inputPenerbit();
                     }else if (popo == 7) {
@@ -112,14 +117,8 @@ public class program {
         writer.println("|=======================================================================================================|%n");
     }
 
-    private static void checkClientData() {
-        System.out.println("Checking Mahasiswa/Dosen data...");
-        if (clientList.isEmpty()) {
-            System.out.println("No Mahasiswa/Dosen data available.");
-        } else {
-            printClientData();
-        }
-    }
+
+    
 
     private static void printClientData() {
         writer.println("Mahasiswa/Dosen data is available.");
@@ -134,14 +133,7 @@ public class program {
         writer.println("|=======================================================================================================|%n");
     }
 
-    private static void checkCD() {
-        System.out.println("Checking CD data...");
-        if (cdList.isEmpty()) {
-            System.out.println("No CD data available.");
-        } else {
-            printCDData();
-        }
-    }
+    
 
     private static void printCDData() {
         writer.println("CD data is available.");
@@ -156,35 +148,15 @@ public class program {
         writer.println("|=======================================================================================================|%n");
     }
 
-    private static void checkBuku() {
-        System.out.println("Checking Buku/Majalah data...");
-        if (bukuMajalahList.isEmpty()) {
-            System.out.println("No Buku/Majalah data available.");
-        } else {
-            printBukuData();
-        }
-    }
-
-    private static void printBukuData() {
-        writer.println("Buku/Majalah Data is available");
-        writer.println("|=======================================================================================================|%n");
-        writer.println("|                                              Buku Majalah                                             |%n");
-        writer.println("|=======================================================================================================|%n");
-        writer.printf("| %-10s | %-10s | %-20s | %-8s |%n", "ID", "Tahun Terbit", "Judul", "Jumlah Total");
-        writer.println("|=======================================================================================================|%n");
-        for(buku_majalah bm : bukuMajalahList){
-            writer.printf("| %-3s | %-10s | %-20s | %-8d |%n", bm.getIdBuku(), bm.getTahunTerbit(), bm.getJudul(), bm.getjTotal());
-        }
-        writer.println("|=======================================================================================================|%n");
-    }
 
     private static void inputBukuMajalah(Scanner scanner) {
         System.out.println("Enter ID Buku:");
         int idBuku = scanner.nextInt();
+        scanner.nextLine(); // Consume newline left-over
         System.out.println("Enter Tahun Terbit:");
-        String tahunTerbit = scanner.next();
+        String tahunTerbit = scanner.nextLine();
         System.out.println("Enter Judul:");
-        String judul = scanner.next();
+        String judul = scanner.nextLine();
         System.out.println("Enter Jumlah Total:");
         int jTotal = scanner.nextInt();
         System.out.println("Enter ID Pengarang:");
@@ -200,16 +172,17 @@ public class program {
     }
 
     private static void printBukuMajalahData() {
-        writer.println("|=======================================================================================================|%n");
-        writer.println("|                                              Buku Majalah                                             |%n");
-        writer.println("|=======================================================================================================|%n");
-        writer.printf("| %-5s | %-13s | %-20s | %-8s | %-10s | %-10s |%n", "ID", "Tahun Terbit", "Judul", "Jumlah Total", "ID Penerbit", "ID Pengarang");
-        writer.println("|=======================================================================================================|%n");
+        System.out.println("|=======================================================================================================|%n");
+        System.out.println("|                                              Buku Majalah                                             |%n");
+        System.out.println("|=======================================================================================================|%n");
+        System.out.printf("| %-5s | %-13s | %-20s | %-8s | %-10s | %-10s |%n", "ID", "Tahun Terbit", "Judul", "Jumlah Total", "ID Pengarang", "ID Penerbit");
+        System.out.println("|=======================================================================================================|%n");
         for(buku_majalah bm : bukuMajalahList){
-            writer.printf("| %-8s | %-10s | %-20s | %-8d | %-10s | %-10s |%n", bm.getIdBuku(), bm.getTahunTerbit(), bm.getJudul(), bm.getjTotal(), bm.getIdPenerbit(), bm.getIdPengarang());
+            System.out.printf("| %-8s | %-10s | %-20s | %-8d | %-10s | %-10s |%n", bm.getIdBuku(), bm.getTahunTerbit(), bm.getJudul(), bm.getjTotal(), bm.getIdPenerbit(), bm.getIdPengarang());
         }
-        writer.println("|=======================================================================================================|%n");
+        System.out.println("|=======================================================================================================|%n");
     }
+
 
     private static void inputClient(Scanner scanner) {
         System.out.println("Enter NIM:");
@@ -438,4 +411,5 @@ public class program {
 
     
 }
+
 
