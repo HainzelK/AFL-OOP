@@ -172,15 +172,15 @@ public class program {
     }
 
     private static void printBukuMajalahData() {
-        System.out.println("|=======================================================================================================|%n");
-        System.out.println("|                                              Buku Majalah                                             |%n");
-        System.out.println("|=======================================================================================================|%n");
-        System.out.printf("| %-5s | %-13s | %-20s | %-8s | %-10s | %-10s |%n", "ID", "Tahun Terbit", "Judul", "Jumlah Total", "ID Pengarang", "ID Penerbit");
-        System.out.println("|=======================================================================================================|%n");
+        writer.println("|=======================================================================================================|%n");
+        writer.println("|                                              Buku Majalah                                             |%n");
+        writer.println("|=======================================================================================================|%n");
+        writer.printf("| %-5s | %-13s | %-20s | %-8s | %-10s | %-10s |%n", "ID", "Tahun Terbit", "Judul", "Jumlah Total", "ID Pengarang", "ID Penerbit");
+        writer.println("|=======================================================================================================|%n");
         for(buku_majalah bm : bukuMajalahList){
-            System.out.printf("| %-8s | %-10s | %-20s | %-8d | %-10s | %-10s |%n", bm.getIdBuku(), bm.getTahunTerbit(), bm.getJudul(), bm.getjTotal(), bm.getIdPenerbit(), bm.getIdPengarang());
+            writer.printf("| %-8s | %-10s | %-20s | %-8d | %-10s | %-10s |%n", bm.getIdBuku(), bm.getTahunTerbit(), bm.getJudul(), bm.getjTotal(), bm.getIdPenerbit(), bm.getIdPengarang());
         }
-        System.out.println("|=======================================================================================================|%n");
+        writer.println("|=======================================================================================================|%n");
     }
 
 
